@@ -1,0 +1,43 @@
+body {
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+.column {
+    cursor:pointer;
+}
+
+.example-2 {
+    width: 50%;
+    margin: 0 auto;
+    text-align: center;
+}
+
+table {
+    margin: 10px auto 100px auto;
+	font-size:11px;
+	color:#333333;
+	border-width: 1px;
+	border-color: #666666;
+	border-collapse: collapse;
+}
+
+th {
+	border-width: 1px;
+	padding: 8px;
+	border-style: solid;
+	border-color: #2D2D2D;
+	background-color:  #FEFEFE;
+}
+
+td {
+	border-width: 1px;
+	padding: 8px;
+	border-style: solid;
+	border-color: #2D2D2D;
+	background-color: #eDeDeD;
+}
+
+.selected {
+    border : #FE5000 solid 1px;
+    border-collapse: separate;
+}
