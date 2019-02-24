@@ -25555,11 +25555,11 @@ function Row(props) {
       weather = props.weather,
       hottest = props.hottest,
       coldest = props.coldest;
-  return _react.default.createElement("tr", null, _react.default.createElement("td", null, date), _react.default.createElement("td", null, weather), _react.default.createElement("td", {
-    className: hottest && "hottest"
-  }, high, " \xB0F"), _react.default.createElement("td", {
-    className: coldest && "coldest"
-  }, low, " \xB0F"));
+  return _react.default.createElement("tr", null, _react.default.createElement("td", null, date), _react.default.createElement("td", null, weather), hottest ? _react.default.createElement("td", {
+    className: "hottest"
+  }, high, " \xB0F") : _react.default.createElement("td", null, high, " \xB0F"), coldest ? _react.default.createElement("td", {
+    className: coldest ? "coldest" : ""
+  }, low, " \xB0F") : _react.default.createElement("td", null, low, " \xB0F"));
 }
 
 var _default = Row;
@@ -25666,7 +25666,7 @@ function (_React$Component) {
     value: function componentDidMount() {
       var _this2 = this;
 
-      fetch("http://api.openweathermap.org/data/2.5/forecast/daily?q=MountainView&mode=json&units=metric&cnt=14&appid=fe030802c952154e6262bcaeb94017a0").then(function (response) {
+      fetch("https://api.openweathermap.org/data/2.5/forecast/daily?q=MountainView&mode=json&units=metric&cnt=14&appid=fe030802c952154e6262bcaeb94017a0").then(function (response) {
         return response.json();
       }).then(function (response) {
         return _this2.setState({
@@ -26086,7 +26086,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55053" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62672" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);

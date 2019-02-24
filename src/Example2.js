@@ -25,7 +25,7 @@ class Example2 extends React.Component {
     }
 
     componentDidMount() {
-        fetch("http://api.openweathermap.org/data/2.5/forecast/daily?q=MountainView&mode=json&units=metric&cnt=14&appid=fe030802c952154e6262bcaeb94017a0").then(
+        fetch("https://api.openweathermap.org/data/2.5/forecast/daily?q=MountainView&mode=json&units=metric&cnt=14&appid=fe030802c952154e6262bcaeb94017a0").then(
             response => { return response.json() }).then((response) => {
                 return this.setState({
                     days: response.list.map((day, index) => {
