@@ -25675,8 +25675,8 @@ function (_React$Component) {
               key: index,
               dateNumeric: day.dt,
               date: formatDate(day.dt),
-              high: day.temp.max,
-              low: day.temp.min,
+              high: Math.floor(day.temp.max * 1.8 + 32),
+              low: Math.floor(day.temp.min * 1.8 + 32),
               weather: formatWeather(day.weather),
               hottest: false,
               coldest: false
@@ -26086,7 +26086,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62672" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54400" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);

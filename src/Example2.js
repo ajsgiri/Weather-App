@@ -33,8 +33,8 @@ class Example2 extends React.Component {
                             key: index,
                             dateNumeric: day.dt,
                             date: formatDate(day.dt),
-                            high: day.temp.max,
-                            low: day.temp.min,
+                            high: Math.floor((day.temp.max * 1.8) + 32),
+                            low: Math.floor((day.temp.min * 1.8) + 32),
                             weather: formatWeather(day.weather),
                             hottest: false,
                             coldest: false
