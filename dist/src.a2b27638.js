@@ -25552,8 +25552,14 @@ function Row(props) {
   var date = props.date,
       high = props.high,
       low = props.low,
-      weather = props.weather;
-  return _react.default.createElement("tr", null, _react.default.createElement("td", null, date), _react.default.createElement("td", null, weather), _react.default.createElement("td", null, high, " \xB0F"), _react.default.createElement("td", null, low, " \xB0F"));
+      weather = props.weather,
+      hottest = props.hottest,
+      coldest = props.coldest;
+  return _react.default.createElement("tr", null, _react.default.createElement("td", null, date), _react.default.createElement("td", null, weather), _react.default.createElement("td", {
+    className: hottest && "hottest"
+  }, high, " \xB0F"), _react.default.createElement("td", {
+    className: coldest && "coldest"
+  }, low, " \xB0F"));
 }
 
 var _default = Row;
@@ -25640,16 +25646,18 @@ function (_React$Component) {
         // Unix value of date
         date: "",
         // parsed date formated as "Oct 30, 2018"
-        temp: {
-          max: 0,
-          min: 0
-        },
-        weather: ""
+        high: 0,
+        low: 0,
+        weather: "",
+        hottest: false,
+        coldest: false
       }],
       currentSort: "dateNumeric",
       sortbyInc: true
     };
     _this.handleClick = _this.handleClick.bind(_assertThisInitialized(_this));
+    _this.setHottest = _this.setHottest.bind(_assertThisInitialized(_this));
+    _this.setColdest = _this.setColdest.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -25669,11 +25677,37 @@ function (_React$Component) {
               date: formatDate(day.dt),
               high: day.temp.max,
               low: day.temp.min,
-              weather: formatWeather(day.weather)
+              weather: formatWeather(day.weather),
+              hottest: false,
+              coldest: false
             };
           })
         });
       });
+    }
+  }, {
+    key: "setHottest",
+    value: function setHottest(days) {
+      var targetIndex = 0;
+      days.forEach(function (day, i, arr) {
+        if (arr[i].high > arr[targetIndex].high) {
+          targetIndex = i;
+        }
+      });
+      days[targetIndex].hottest = true;
+      return days;
+    }
+  }, {
+    key: "setColdest",
+    value: function setColdest(days) {
+      var targetIndex = 0;
+      days.forEach(function (day, i, arr) {
+        if (arr[i].low < arr[targetIndex].low) {
+          targetIndex = i;
+        }
+      });
+      days[targetIndex].coldest = true;
+      return days;
     }
   }, {
     key: "handleClick",
@@ -25695,14 +25729,18 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      // format list of days into table data
-      var rows = this.state.days.map(function (entry) {
+      var filteredList = this.setHottest(this.state.days);
+      filteredList = this.setColdest(filteredList); // format list of days into table data
+
+      var rows = filteredList.map(function (entry) {
         return _react.default.createElement(_Row.default, {
           key: entry.key,
           date: entry.date,
           weather: entry.weather,
           high: entry.high,
-          low: entry.low
+          low: entry.low,
+          hottest: entry.hottest,
+          coldest: entry.coldest
         });
       });
       return _react.default.createElement("div", {
@@ -26048,7 +26086,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54619" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55053" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);

@@ -10,16 +10,18 @@ class Example2 extends React.Component {
                 key: 0,  // identifier from api
                 dateNumeric: 0,  // Unix value of date
                 date: "",   // parsed date formated as "Oct 30, 2018"
-                temp: {
-                    max: 0,
-                    min: 0
-                },
-                weather: ""
+                high: 0,
+                low: 0,
+                weather: "",
+                hottest: false,
+                coldest: false
             }],
             currentSort: "dateNumeric",
             sortbyInc: true
         };
         this.handleClick = this.handleClick.bind(this);
+        this.setHottest = this.setHottest.bind(this);
+        this.setColdest = this.setColdest.bind(this);
     }
 
     componentDidMount() {
@@ -33,11 +35,35 @@ class Example2 extends React.Component {
                             date: formatDate(day.dt),
                             high: day.temp.max,
                             low: day.temp.min,
-                            weather: formatWeather(day.weather)
+                            weather: formatWeather(day.weather),
+                            hottest: false,
+                            coldest: false
                         }
                     })
                 })
             })
+        
+    }
+
+    setHottest(days) {
+        let targetIndex = 0;
+        days.forEach( (day, i, arr) => {
+            if( arr[i].high > arr[targetIndex].high) {
+                targetIndex = i;
+            }
+        })
+        days[targetIndex].hottest = true;
+        return days;
+    }
+    setColdest(days) {
+        let targetIndex = 0;
+        days.forEach( (day, i, arr) => {
+            if( arr[i].low < arr[targetIndex].low) {
+                targetIndex = i;
+            }
+        })
+        days[targetIndex].coldest = true;
+        return days;
     }
 
     handleClick(event) {
@@ -55,10 +81,13 @@ class Example2 extends React.Component {
     }
 
     render() {
-
+        let filteredList = this.setHottest(this.state.days);
+        filteredList = this.setColdest(filteredList);
+    
         // format list of days into table data
-        let rows = this.state.days.map(entry => {
-            return <Row key={entry.key} date={entry.date} weather={entry.weather} high={entry.high} low={entry.low} />
+        let rows = filteredList.map(entry => {
+            return <Row key={entry.key} date={entry.date} weather={entry.weather} high={entry.high} low={entry.low}
+                hottest={entry.hottest} coldest={entry.coldest} />
         })
 
         return (

@@ -1,12 +1,12 @@
 import React from 'react';
 
 function Row(props) {
-    let { date, high, low, weather } = props
+    let { date, high, low, weather, hottest, coldest } = props
     return (<tr>
         <td>{date}</td>
         <td>{weather}</td>
-        <td>{high} &deg;F</td>
-        <td>{low} &deg;F</td>
+        <td className={(hottest && "hottest")}>{high} &deg;F</td>
+        <td className={(coldest && "coldest")}>{low} &deg;F</td>
     </tr>)
 }
 

@@ -41,3 +41,11 @@ td {
     border : #FE5000 solid 1px;
     border-collapse: separate;
 }
+
+.coldest {
+    color : blue;
+}
+
+.hottest {
+    color: red;
+}
